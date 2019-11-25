@@ -6,14 +6,15 @@ from eagle.exceptions import UserError, ValidationError
 
 class EagleeduExam(models.Model):
     _name = 'eagleedu.exam'
+    _description='Education Exam'
 
     name = fields.Char(string='Name of Exam', default='New')
-    # _rec_name = "exam_type"
+    _rec_name = "exam_type"
 
-    # generated_name=fields.Char(string='Gen Name',default='New')
+    generated_name=fields.Char(string='Gen Name',default='New')
     class_id = fields.Many2one('education.class', string='Class')
-    # division_id = fields.Many2one('education.class.division', string='Division')
-    # exam_type = fields.Many2one('education.exam.type', string='Type', required=True)
+    division_id = fields.Many2one('education.class.division', string='Division')
+    exam_type = fields.Many2one('education.exam.type', string='Type', required=True)
     # school_class_division_wise = fields.Selection([('school', 'School'), ('class', 'Class'), ('division', 'Division')],
     #                                               related='exam_type.school_class_division_wise',
     #                                               string='School/Class/Division Wise')
@@ -24,8 +25,8 @@ class EagleeduExam(models.Model):
     # subject_line = fields.One2many('education.subject.line', 'exam_id', string='Subjects')
     state = fields.Selection([('draft', 'Draft'), ('ongoing', 'On Going'), ('close', 'Closed'), ('cancel', 'Canceled')],
                              default='draft')
-    # academic_year = fields.Many2one('education.academic.year', string='Academic Year',
-    #                                 related='division_id.academic_year_id', store=True)
+    # academic_year = fields.Many2one('eagleedu.academic.year', string='Academic Year',
+    #                                  related='division_id.academic_year_id', store=True)
     company_id = fields.Many2one('res.company', string='Company',
                                  default=lambda self: self.env['res.company']._company_default_get())
     # transcript_id=fields.Many2one('academic.transcript')
@@ -157,7 +158,7 @@ class SubjectLine(models.Model):
      _name = 'education.subject.line'
      _description=' Education Subject Line '
 
-#     _rec_name = 'subject_id'
+     # _rec_name = 'subject_id'
 
 #     subject_id = fields.Many2one('education.syllabus', string='Subject', required=True)
 #     display=fields.Char(related='subject_id.name')
